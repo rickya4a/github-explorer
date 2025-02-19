@@ -1,9 +1,17 @@
 "use client"
 
-import { GitHubProvider } from "@/app/context/GithubContext"
-import SearchForm from "@/app/components/SearchForm"
-import RepositoryList from "@/app/components/RepositoryList"
-import ReadmeViewer from "@/app/components/ReadmeViewer"
+import { GitHubProvider, useGitHub } from "./context/GithubContext"
+import SearchForm from "./components/SearchForm"
+import RepositoryList from "./components/RepositoryList"
+import ReadmeViewer from "./components/ReadmeViewer"
+import TrendingRepos from "./components/TrendingRepos"
+
+function RepoDisplay() {
+  const { state } = useGitHub()
+  const { repositories } = state
+
+  return repositories.length > 0 ? <RepositoryList /> : <TrendingRepos />
+}
 
 export default function Home() {
   return (
@@ -14,10 +22,11 @@ export default function Home() {
         </header>
         <main>
           <SearchForm />
-          <RepositoryList />
+          <RepoDisplay />
           <ReadmeViewer />
         </main>
       </div>
     </GitHubProvider>
   )
 }
+

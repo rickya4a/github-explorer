@@ -46,6 +46,7 @@ export default function ReadmeViewer() {
   return (
     <div className='readme-content'>
       <button
+        className='back-button'
         onClick={() => dispatch({ type: 'SET_SELECTED_REPO', payload: null })}>
         Back to repositories
       </button>

@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { type FormEvent } from 'react';
 import { useGitHub } from '@/app/context/GithubContext';
 
 export default function SearchForm() {
-  const [username, setUsername] = useState('');
-  const { dispatch } = useGitHub();
+  const { state, dispatch } = useGitHub();
+  const { username } = state;
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -13,9 +13,10 @@ export default function SearchForm() {
 
     dispatch({ type: 'SET_LOADING', payload: true });
     dispatch({ type: 'SET_ERROR', payload: null });
+    dispatch({ type: 'SET_TRENDING_REPOS', payload: [] });
+    dispatch({ type: 'SET_SELECTED_REPO', payload: null });
 
     try {
-      dispatch({ type: 'SET_SELECTED_REPO', payload: null })
       const response = await fetch(
         `https://api.github.com/users/${username}/repos`
       );
@@ -40,7 +41,9 @@ export default function SearchForm() {
       <input
         type='text'
         value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        onChange={(e) =>
+          dispatch({ type: 'SET_USERNAME', payload: e.target.value })
+        }
         placeholder='Enter GitHub username'
         className='search-input'
       />
