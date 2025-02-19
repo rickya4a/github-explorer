@@ -22,7 +22,16 @@ export default function RepositoryList() {
     <div className='repo-list'>
       {repositories.map((repo) => (
         <div key={repo.id} className='repo-card'>
-          <h3 className='repo-name'>{repo.name}</h3>
+          <h3 className='repo-name'>
+            <a
+              href={repo.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="repo-link"
+            >
+              {repo.name}
+            </a>
+          </h3>
           <p className='repo-description'>
             {repo.description || 'No description available'}
           </p>

@@ -61,6 +61,15 @@ body {
   gap: 20px;
 }
 
+.repo-list a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.repo-list a:hover {
+  text-decoration: underline;
+}
+
 .repo-card {
   background-color: var(--card-background);
   border: 1px solid var(--border-color);
